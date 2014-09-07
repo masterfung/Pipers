@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from event.views import EventList
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^login/$', 'person.views.login', name='login'),
 
     url(r'^profile/$', 'person.views.profile', name='profile'),
+    url(r'^api/v1/events/$', EventList.as_view(), name='event_list'),
 
 )

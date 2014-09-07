@@ -1,8 +1,12 @@
 Django==1.7
+bcrypt==1.0.2
 certifi==14.05.14
+cffi==0.8.6
+djangorestframework==2.4.2
 geotrigger-python==0.1.1
 oauthlib==0.6.3
 psycopg2==2.5.4
+pycparser==2.10
 python-openid==2.2.5
 python-social-auth==0.1.26
 requests==2.4.0
