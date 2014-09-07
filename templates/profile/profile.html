@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Profile | {{ request.user.first_name }}
+{% endblock title %}
+
+{% block content %}
+<div class="spacing-buffer"></div>
+<h1>
+	<a>Hello {{ user.get_full_name|default:user.username }}!</a>
+</h1>
+{% endblock content %}
