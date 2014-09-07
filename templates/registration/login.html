@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="spacing-buffer"></div>
+<div class="container">
+    <div class="row">
+	    <h1 class="text-center">Log In with Twitter</h1>
+	    <p class="text-center">Great events await beyond. Unlock your micro sphere of influence now.</p>
+        <div class="centering">
+            <a class="btn btn-large" href="{% url 'social:begin' 'twitter' %}"><img src="{% static 'img/FacebookButton.png' %}" alt=""/></a>
+        </div>
+	    <div class="text-center"><a href="https://twitter.com/">Don't have a Twitter account? Sign Up</a></div>
+        <input type="hidden" name="next" value="{{ next }}" />
+    </div>
+</div>
+
+{% endblock content %}

@@ -37,6 +37,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
+    'event',
+    'person',
+    'rest_framework',
+    'bcrypt',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,22 +55,73 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+
+    "django.core.context_processors.request",
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
+)
+
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
+
 ROOT_URLCONF = 'piper.urls'
 
 WSGI_APPLICATION = 'piper.wsgi.application'
 
 SOCIAL_AUTH_TWITTER_LOGIN_URL = "profile"
+
 SOCIAL_AUTH_LOGIN_URL = "profile"
+
+LOGIN_REDIRECT_URL = 'profile'
+
 LOGIN_URL = "/login/"
 
 SOCIAL_AUTH_TWITTER_KEY = 'VMc8w90FdAsy5JX5APry9b6DV'
 SOCIAL_AUTH_TWITTER_SECRET = 'pqfGMXoYQP5ERgGlGkVy1XBiQQ0l68g7F92NBlz9cxGmknzmzn'
 
-SOCIAL_AUTH_AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = (
     'social.backends.open_id.OpenIdAuth',
     'social.backends.twitter.TwitterOAuth',
+    "django.contrib.auth.backends.ModelBackend",
 )
 
+SOCIAL_AUTH_DISCONNECT_PIPELINE = (
+    'social.pipeline.disconnect.allowed_to_disconnect',
+    'social.pipeline.disconnect.get_entries',
+    'social.pipeline.disconnect.revoke_tokens',
+    'social.pipeline.disconnect.disconnect',
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+)
+
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', ]
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -89,6 +146,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'person.Person'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
