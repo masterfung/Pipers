@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from event.models import Event
@@ -27,3 +27,7 @@ class EventList(EventMixin, generics.ListCreateAPIView):
     users to create new events.
     """
     permission_classes = (IsAuthenticated,)
+
+
+class EventDetail(EventMixin, generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAdminUser,)
