@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import keys
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -18,7 +20,7 @@ SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'nb*#c7du)d%38(gze69^f_+kn1i)u=7=&gr+73z(fpf_*)w@)7'
+SECRET_KEY = keys.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -91,8 +93,8 @@ LOGIN_REDIRECT_URL = 'profile'
 
 LOGIN_URL = "/login/"
 
-SOCIAL_AUTH_TWITTER_KEY = 'VMc8w90FdAsy5JX5APry9b6DV'
-SOCIAL_AUTH_TWITTER_SECRET = 'pqfGMXoYQP5ERgGlGkVy1XBiQQ0l68g7F92NBlz9cxGmknzmzn'
+SOCIAL_AUTH_TWITTER_KEY = keys.SOCIAL_AUTH_TWITTER_KEY
+SOCIAL_AUTH_TWITTER_SECRET = keys.SOCIAL_AUTH_TWITTER_SECRET
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.open_id.OpenIdAuth',
@@ -131,6 +133,19 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'piper',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'PAGINATE_BY': 10,  # Default to 10
+    'PAGINATE_BY_PARAM': 'page_size',  # Allow client to override, using `?page_size=xxx`.
+    'MAX_PAGINATE_BY': 100  # Maximum limit allowed when using `?page_size=xxx`.
 }
 
 # Internationalization
